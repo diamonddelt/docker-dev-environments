@@ -8,4 +8,4 @@ These are intended to be simple templates to add to existing projects or to use 
 
 ## Supported Environments
 
-1. [python](./dev-environments/python/Dockerfile)
+1. [python](./python/Dockerfile)
