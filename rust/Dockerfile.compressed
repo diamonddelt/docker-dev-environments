@@ -1,0 +1,14 @@
+# Creates a "slim" container with just a compiled rust application using multiple layers
+
+# Layer 0 - compile the rust application in a rust container (referred to as "builder")
+FROM rust:1.40 as builder
+WORKDIR /usr/src/myapp
+COPY . .
+RUN cargo install --path .
+
+# Layer 1 - move the compiled app into a "slimmer" runtime container
+FROM debian:buster-slim
+# You may need extra shared libraries in the line below
+RUN apt-get update && apt-get install -y extra-runtime-dependencies && rm -rf /var/lib/apt/lists/*
+COPY --from=builder /usr/local/cargo/bin/myapp /usr/local/bin/myapp
+CMD ["myapp"]

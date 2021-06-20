@@ -1,0 +1,14 @@
+# Declare the base image to use as the container's "Operating System"
+FROM rust:1.31
+
+# Set the starting directory on the running container
+WORKDIR /code
+
+# Copy any dependency files into the WORKDIR
+COPY . .
+
+# Run a command while building the container (install dependencies via cargo)
+RUN cargo install --path .
+
+# Set the command to run on container start
+CMD ["code"]
